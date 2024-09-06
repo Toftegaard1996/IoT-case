@@ -37,27 +37,34 @@ class OfficeRoomsController extends Controller
 //        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
 //    }
 
-    public function store(Request $request)
-    {
-        // Validate the incoming data
-        $validatedDataUno = $request->validate([
-            'temp' => 'required|string',
-            'humidity' => 'required|string',
-            'noise' => 'required|string',
-            'light' => 'required|string',
-            'brightness' => 'required|int',
-            'mode' => 'required|boolean',
-            'motion' => 'required|boolean'
-        ]);
+     public function store(Request $request)
+         {
+             // For testing, log the incoming request data
+             \Log::info('Sensor data received:', $request->all());
 
-        // Create a new sensor data record
-        $sensorDataUno = OfficeRooms::create($validatedDataUno);
-
-        // Broadcast the event with the new sensor data
-        event(new SensorDataUpdated([$validatedDataUno])); // Broadcasting only the newly created data as an array
-
-        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
-    }
+             return response()->json(['status' => 'Data received successfully']);
+         }
+//    public function store(Request $request)
+//    {
+//        // Validate the incoming data
+//        $validatedDataUno = $request->validate([
+//            'temp' => 'required|string',
+//            'humidity' => 'required|string',
+//            'noise' => 'required|string',
+//            'light' => 'required|string',
+//            'brightness' => 'required|int',
+//            'mode' => 'required|boolean',
+//            'motion' => 'required|boolean'
+//        ]);
+//
+//        // Create a new sensor data record
+//        $sensorDataUno = OfficeRooms::create($validatedDataUno);
+//
+//        // Broadcast the event with the new sensor data
+//        event(new SensorDataUpdated([$sensorDataUno])); // Broadcasting only the newly created data as an array
+//
+//        return response()->json(['message' => 'Save successfull'], 201);
+//    }w
 
     public function updateSensorData()
     {
