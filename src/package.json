@@ -23,6 +23,7 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "chart.js": "^4.4.4",
         "date-fns": "^3.6.0"
     }
 }
