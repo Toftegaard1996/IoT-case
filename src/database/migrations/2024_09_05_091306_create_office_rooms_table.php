@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('humidity')->nullable();
             $table->string('noise')->nullable();
             $table->string('light')->nullable();
+            $table->unsignedBigInteger('brightness')->nullable();
+            $table->string('mode')->nullable();
             $table->boolean('motion')->default(0)->nullable();
             $table->timestamps();
         });

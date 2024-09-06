@@ -3,6 +3,7 @@
 // import "https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"
 // import "https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" //Date adapter
 import Chart from 'chart.js/auto';
+import Moment from 'chart.js'
 console.log('Initializing chart...');
 
 // Initialize the chart
