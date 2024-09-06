@@ -31,6 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
 //            'http://192.168.1.125:8000/sound-levels',
 //            'http://192.168.1.125:8000/sensor-data',
             'http://192.168.1.125:8000/office/store',
+            'http://192.168.1.125:8000/office-store',
 //            'http://192.168.1.125:8000/device-settings',
 //            'http://192.168.1.125:8000/device-settings/{id}',
 //            'http://192.168.1.125:8001/sensor-data',
