@@ -13,7 +13,7 @@ class OfficeRoomsController extends Controller
 {
     public function index()
     {
-	dd(OfficeRooms::whereDate('created_at', Carbon::today())->get,
+	dd(OfficeRooms::whereDate('created_at', Carbon::today())->get());
         return Inertia::render('Dashboard', [
             'officeRoomToday' => OfficeRooms::whereDate('created_at', Carbon::today())->get(),
         ]);
