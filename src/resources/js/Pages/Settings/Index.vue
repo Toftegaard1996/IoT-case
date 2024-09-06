@@ -3,7 +3,7 @@ import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import type {OfficeRooms} from "@/types";
+import type {OfficeRooms} from "@/Types";
 
 const props = defineProps<{
     officeRoomToday: OfficeRooms[]
@@ -26,7 +26,7 @@ const props = defineProps<{
                         <div>
                             <p>Vælg lokale at ændre indstillinger for</p>
                             <Dropdown>
-                                <p v-for="row in rooms" :key="row.id">{{ row.roomName }}</p>
+                                <DropdownLink v-for="row in rooms" :key="row.id">{{ row.roomName }}</DropdownLink>
                             </Dropdown>
                         </div>
                     </div>
