@@ -17,7 +17,7 @@ class OfficeRoomsController extends Controller
         return Inertia::render('Dashboard', [
             'officeRoomToday' => OfficeRooms::whereDate('created_at', Carbon::today())->get(),
         ]);
-
+//I just need to test
     }
 
     public function store(OfficeRoomsRequest $request)
