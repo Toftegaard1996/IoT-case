@@ -19,31 +19,31 @@ class OfficeRoomsController extends Controller
         ]);
     }
 
-//    public function store(OfficeRoomsRequest $request)
-//    {
-//        $sensorData = OfficeRooms::create([
-//            'roomName' => $request->input('roomName'),
-//            'temp' => $request->input('temp'),
-//            'humidity' => $request->input('humidity'),
-//            'noise' => $request->input('noise'),
-//            'light' => $request->input('light'),
-//            'brightness' => $request->input('brightness'),
-//            'mode' => $request->input('mode'),
-//            'motion' => $request->input('motion'),
-//        ]);
-//
-//        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
-//
-//        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
-//    }
+    public function store(OfficeRoomsRequest $request)
+    {
+        $sensorData = OfficeRooms::create([
+            'roomName' => $request->input('roomName'),
+            'temp' => $request->input('temp'),
+            'humidity' => $request->input('humidity'),
+            'noise' => $request->input('noise'),
+            'light' => $request->input('light'),
+            'brightness' => $request->input('brightness'),
+            'mode' => $request->input('mode'),
+            'motion' => $request->input('motion'),
+        ]);
 
-     public function store(Request $request)
-         {
-             // For testing, log the incoming request data
-             \Log::info('Sensor data received:', $request->all());
+        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
 
-             return response()->json(['status' => 'Data received successfully']);
-         }
+        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
+    }
+
+//     public function store(Request $request)
+//         {
+//             // For testing, log the incoming request data
+//             \Log::info('Sensor data received:', $request->all());
+//
+//             return response()->json(['status' => 'Data received successfully']);
+//         }
 //    public function store(Request $request)
 //    {
 //        // Validate the incoming data
