@@ -24,6 +24,8 @@ class OfficeRoomsRequest extends FormRequest
             'humidity' => 'string',
             'noise' => 'string',
             'light' => 'string',
+            'brightness' => 'int',
+            'mode' => 'string',
             'motion' => 'string',
         ];
     }
