@@ -38,7 +38,7 @@ class OfficeRoomsController extends Controller
     public function updateSensorData()
     {
         // Retrieve all records as a collection (without pagination)
-        $allData = OfficeRooms::orderBy('Timestamp', 'desc')->get();
+        $allData = OfficeRooms::orderBy('created_at', 'desc')->get();
 
         // Return all the data as a JSON response, but do not broadcast again
         return response()->json($allData);
