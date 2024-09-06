@@ -15,6 +15,8 @@ class OfficeRooms extends Model
         'humidity',
         'noise',
         'light',
+        'brightness',
+        'mode',
         'motion',
     ];
 }

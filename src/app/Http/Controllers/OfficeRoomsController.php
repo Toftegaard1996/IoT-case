@@ -19,20 +19,42 @@ class OfficeRoomsController extends Controller
         ]);
     }
 
-    public function store(OfficeRoomsRequest $request)
+//    public function store(OfficeRoomsRequest $request)
+//    {
+//        $sensorData = OfficeRooms::create([
+//            'roomName' => $request->input('roomName'),
+//            'temp' => $request->input('temp'),
+//            'humidity' => $request->input('humidity'),
+//            'noise' => $request->input('noise'),
+//            'light' => $request->input('light'),
+//            'brightness' => $request->input('brightness'),
+//            'mode' => $request->input('mode'),
+//            'motion' => $request->input('motion'),
+//        ]);
+//
+//        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
+//
+//        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
+//    }
+
+    public function store(Request $request)
     {
-        $sensorData = OfficeRooms::create([
-            'roomName' => $request->input('roomName'),
-            'temp' => $request->input('temp'),
-            'humidity' => $request->input('humidity'),
-            'noise' => $request->input('noise'),
-            'light' => $request->input('light'),
-            'brightness' => $request->input('brightness'),
-            'mode' => $request->input('mode'),
-            'motion' => $request->input('motion'),
+        // Validate the incoming data
+        $validatedDataUno = $request->validate([
+            'temp' => 'required|string',
+            'humidity' => 'required|string',
+            'noise' => 'required|string',
+            'light' => 'required|string',
+            'brightness' => 'required|int',
+            'mode' => 'required|boolean',
+            'motion' => 'required|boolean'
         ]);
 
-        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
+        // Create a new sensor data record
+        $sensorDataUno = OfficeRooms::create($validatedDataUno);
+
+        // Broadcast the event with the new sensor data
+        event(new SensorDataUpdated([$validatedDataUno])); // Broadcasting only the newly created data as an array
 
         return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
     }
