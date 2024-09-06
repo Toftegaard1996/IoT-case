@@ -2,13 +2,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import {OfficeRooms} from "@/Types";
+import GraphView from "@/Components/GraphView.vue";
 
 
 const props = defineProps<{
     officeRoomToday: OfficeRooms[]
     rooms: OfficeRooms[]
 }>()
-console.log(props.officeRoomToday);
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ console.log(props.officeRoomToday);
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dagens grafer</h2>
         </template>
 
         <div class="py-12">
@@ -25,7 +26,7 @@ console.log(props.officeRoomToday);
                     <div class="p-6 text-gray-900">Here you can see today's graph for temperatures in the office
                         <div v-for="row in rooms" :key="row.id">
                             <p>{{ row.roomName }}</p>
-                            <p>{{ row.temp }}</p>
+                            <GraphView />
 
                         </div>
                     </div>

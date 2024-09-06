@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingsRequest;
+use App\Models\OfficeRooms;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,6 +14,7 @@ class SettingsController extends Controller
     {
         return Inertia::render('Settings/Index', [
             'Settings' => Settings::all(),
+            'rooms' => OfficeRooms::all()->unique('roomName'),
         ]);
 
 //        return response()->json($settings);

@@ -1,6 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
+import type {OfficeRooms} from "@/types";
+
+const props = defineProps<{
+    officeRoomToday: OfficeRooms[]
+    rooms: OfficeRooms[]
+}>()
 </script>
 
 <template>
@@ -15,7 +23,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">Her kan du se og ændre indstillinger for et gældende lokale
-
+                        <div>
+                            <p>Vælg lokale at ændre indstillinger for</p>
+                            <Dropdown>
+                                <p v-for="row in rooms" :key="row.id">{{ row.roomName }}</p>
+                            </Dropdown>
+                        </div>
                     </div>
                 </div>
             </div>
