@@ -27,6 +27,8 @@ class OfficeRoomsController extends Controller
             'humidity' => $request->input('humidity'),
             'noise' => $request->input('noise'),
             'light' => $request->input('light'),
+            'brightness' => $request->input('brightness'),
+            'mode' => $request->input('mode'),
             'motion' => $request->input('motion'),
         ]);
 
