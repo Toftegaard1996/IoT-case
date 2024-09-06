@@ -1,7 +1,7 @@
 <script setup>
-src="https://cdn.jsdelivr.net/npm/chart.js"
-src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"
-src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" //Date adapter
+import "https://cdn.jsdelivr.net/npm/chart.js"
+import "https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"
+import "https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" //Date adapter
 console.log('Initializing chart...');
 
 // Initialize the chart

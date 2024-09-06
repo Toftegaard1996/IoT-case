@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('/')" :active="route().current('/')">
                                     Today's graph
                                 </NavLink>
                                 <NavLink :href="route('dashboard')" :active="route().current('blah')">
