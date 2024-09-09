@@ -34,7 +34,8 @@ Route::middleware('auth')->group(function () {
 });
 
 //Resource controller to handle settings for the client devices | Handles get/post/put/delete depending on the function names in the controller
-Route::resource('settings', SettingsController::class)->except('show', 'create', 'edit', 'destroy');
+//Route::resource('settings', SettingsController::class)->except('show', 'create', 'edit', 'destroy');
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
 // Trigger the event  Real Project
 //Route::post('/sensor-data', [OfficeRoomsController::class, 'store']);
