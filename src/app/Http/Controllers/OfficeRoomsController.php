@@ -47,10 +47,10 @@ class OfficeRoomsController extends Controller
         return response()->json($allData);
     }
 
-//    public function yesterdayData()
-//    {
-//        return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
-//    }
+    public function yesterdayData()
+    {
+        return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
+    }
 
 //     Method to handle the POST request
 //    public function storeOffice(Request $request)
