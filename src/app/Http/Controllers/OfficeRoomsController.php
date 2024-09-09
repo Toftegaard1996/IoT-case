@@ -38,6 +38,18 @@ class OfficeRoomsController extends Controller
         return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
     }
 
+    public function rules()
+    {
+        return [
+            'roomName' => 'required|string|max:255',
+            'temp' => 'nullable|numeric',
+            'humidity' => 'nullable|numeric',
+            'noise' => 'nullable|numeric',
+            'light' => 'nullable|numeric',
+            'motion' => 'nullable|boolean',
+        ];
+    }
+
     public function updateSensorData()
     {
         // Retrieve all records as a collection (without pagination)
