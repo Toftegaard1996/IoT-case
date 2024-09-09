@@ -19,14 +19,14 @@ class OfficeRoomsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'roomName' => 'required',
-            'temp' => 'string',
-            'humidity' => 'string',
-            'noise' => 'string',
-            'light' => 'string',
-            'brightness' => 'int',
-            'mode' => 'string',
-            'motion' => 'string',
+            'roomName' => 'required|string|max:255',
+            'temp' => 'nullable|numeric',
+            'humidity' => 'nullable|numeric',
+            'noise' => 'nullable|numeric',
+            'light' => 'nullable|numeric',
+            'motion' => 'nullable|boolean',
+            'brightness' => 'nullable|integer',
+            'mode' => 'nullable|string|max:255',
         ];
     }
 }
