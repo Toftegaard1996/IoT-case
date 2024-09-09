@@ -33,9 +33,9 @@ const props = defineProps<{
                                     <th>Start tid</th>
                                     <th>Slut tid</th>
                                 </tr>
-                                <tr v-for="">
+<!--                                <tr v-for="">-->
 
-                                </tr>
+<!--                                </tr>-->
                             </table>
 
                         </div>
