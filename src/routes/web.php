@@ -48,6 +48,8 @@ Route::post('/office/store', [OfficeRoomsController::class, 'storeOffice']);
 // Define a route for the GET request to retrieve all office rooms data
 Route::get('/office', [OfficeRoomsController::class, 'index']);
 
+// Define a route for the POST request to handle motion sensor data
+Route::post('/motion-sensors', [MotionSensorController::class, 'store']);
 
 
 require __DIR__.'/auth.php';
