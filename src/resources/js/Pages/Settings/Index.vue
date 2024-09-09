@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import type {OfficeRooms} from "@/Types";
+import type {OfficeRooms, Settings} from "@/Types";
 
 
 const props = defineProps<{
     officeRoomToday: OfficeRooms[]
     rooms: OfficeRooms[]
+    settings: Settings[]
 }>()
 </script>
 
@@ -24,7 +25,7 @@ const props = defineProps<{
                     <div class="p-6 text-gray-900">Her kan du se og ændre indstillinger for et gældende lokale
                         <div>
                             <p>Oversigt over indstillinger</p>
-                            <table>
+                            <table class="w-full">
                                 <tr>
                                     <th>Room name</th>
                                     <th>Interval</th>
@@ -33,9 +34,15 @@ const props = defineProps<{
                                     <th>Start tid</th>
                                     <th>Slut tid</th>
                                 </tr>
-<!--                                <tr v-for="">-->
+                                <tr v-for="row in settings" :key="row.id">
+                                    <td>{{ row.roomName }}</td>
+                                    <td>{{ row.interval }}</td>
+                                    <td>{{ row.mapTemp }}</td>
+                                    <td>{{ row.minTemp }}</td>
+                                    <td>{{ row.startHour }}</td>
+                                    <td>{{ row.endHour }}</td>
 
-<!--                                </tr>-->
+                                </tr>
                             </table>
 
                         </div>
