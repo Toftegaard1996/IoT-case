@@ -2,7 +2,7 @@
 import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import type {OfficeRooms, Settings} from "@/Types";
-import GreenButton from "@/Pages/Settings/GreenButton.vue";
+import GreenButton from "@/Components/GreenButton.vue";
 
 
 const props = defineProps<{
