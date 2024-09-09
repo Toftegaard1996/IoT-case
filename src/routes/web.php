@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\MotionSensorController;
 use App\Http\Controllers\OfficeRoomsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
@@ -9,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\SoundLevelController;
+use App\Http\Controllers\MotionSensorController;
 
 
 Route::get('/blah', function () {
@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+	Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
 });
 
 //Resource controller to handle settings for the client devices | Handles get/post/put/delete depending on the function names in the controller
@@ -43,10 +43,14 @@ Route::get('/update-sensor', [OfficeRoomsController::class, 'updateSensorData'])
 Route::get('/displayChart', function () {
     return view('welcome');
 });
+// define a route for the get/put request to handle Settings
+Route::get('/settings', [SettingsController::class, 'getSettings']);
+Route::put('/settings/update/{roomName}', [SettingsController::class, 'updateByRoomName']);
 
-//// Define a route for the POST request
+
+// Define a route for the POST request
 //Route::post('/office/store', [OfficeRoomsController::class, 'storeOffice']);
-//// Define a route for the GET request to retrieve all office rooms data
+// Define a route for the GET request to retrieve all office rooms data
 //Route::get('/office', [OfficeRoomsController::class, 'index']);
 
 // Define a route for the POST request to handle motion sensor data
