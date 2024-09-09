@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MotionSensorController;
 use App\Http\Controllers\OfficeRoomsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;

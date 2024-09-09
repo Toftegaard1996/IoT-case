@@ -28,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->validateCsrfTokens(except: [
             'stripe/*',
-//            'http://192.168.1.125:8000/sound-levels',
+            'http://192.168.1.125:8000//motion-sensors',
 //            'http://192.168.1.125:8000/sensor-data',
             'http://192.168.1.125:8000/office/store',
 //            'http://192.168.1.125:8000/device-settings',
