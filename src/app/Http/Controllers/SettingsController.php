@@ -13,7 +13,7 @@ class SettingsController extends Controller
     public function index()
     {
         return Inertia::render('Settings/Index', [
-            'settings' => Settings::all()->orderby('roomName'),
+            'settings' => Settings::orderby('roomName')->all(),
             'rooms' => OfficeRooms::all()->unique('roomName'),
         ]);
 
