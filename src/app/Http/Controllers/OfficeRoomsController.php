@@ -98,7 +98,7 @@ class OfficeRoomsController extends Controller
 //        }
 //    }
 //    // Method to handle the GET request (retrieving data)
-//    public function index()
+//    public function GetAllData()
 //    {
 //        // Retrieve all office room records from the database
 //        $officeRooms = OfficeRooms::all();
