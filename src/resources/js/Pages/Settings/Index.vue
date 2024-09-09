@@ -3,6 +3,8 @@ import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import type {OfficeRooms, Settings} from "@/Types";
 import GreenButton from "@/Components/GreenButton.vue";
+import FormNewSettings from "@/Components/FormNewSettings.vue";
+import {ref} from "vue";
 
 
 const props = defineProps<{
@@ -10,6 +12,12 @@ const props = defineProps<{
     rooms: OfficeRooms[]
     settings: Settings[]
 }>()
+
+const openNewSettings = ref<boolean>(false)
+
+function openNewSettingsModal() {
+    openNewSettings.value = true;
+}
 </script>
 
 <template>
@@ -27,9 +35,9 @@ const props = defineProps<{
                         <div>
                             <p>Oversigt over indstillinger</p>
                             <div class="mt-4">
-                                <GreenButton>+ Ny</GreenButton>
+                                <GreenButton @click="openNewSettingsModal">+ Ny</GreenButton>
                             </div>
-                            <table class="w-full">
+                            <table class="w-full mt-2">
                                 <tr>
                                     <th>Room name</th>
                                     <th>Interval</th>
@@ -57,6 +65,7 @@ const props = defineProps<{
                     </div>
                 </div>
             </div>
+            <FormNewSettings :open="openNewSettings" />
         </div>
     </AuthenticatedLayout>
 </template>
