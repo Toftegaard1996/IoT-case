@@ -2,6 +2,7 @@
 import {Head} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import type {OfficeRooms, Settings} from "@/Types";
+import GreenButton from "@/Pages/Settings/GreenButton.vue";
 
 
 const props = defineProps<{
@@ -22,9 +23,12 @@ const props = defineProps<{
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">Her kan du se og ændre indstillinger for et gældende lokale
+                    <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
                             <p>Oversigt over indstillinger</p>
+                            <div class="mt-4">
+                                <GreenButton>+ Ny</GreenButton>
+                            </div>
                             <table class="w-full">
                                 <tr>
                                     <th>Room name</th>
@@ -33,6 +37,7 @@ const props = defineProps<{
                                     <th>Min temp</th>
                                     <th>Start tid</th>
                                     <th>Slut tid</th>
+                                    <th></th>
                                 </tr>
                                 <tr v-for="row in settings" :key="row.id">
                                     <td>{{ row.roomName }}</td>
@@ -41,6 +46,9 @@ const props = defineProps<{
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
+                                    <td>
+                                        <GreenButton>Rediger</GreenButton>
+                                    </td>
 
                                 </tr>
                             </table>
