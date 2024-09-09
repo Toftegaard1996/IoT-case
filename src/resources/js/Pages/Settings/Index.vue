@@ -45,12 +45,12 @@ function openNewSettingsModal() {
                                     <th>Min temp</th>
                                     <th>Start tid</th>
                                     <th>Slut tid</th>
-                                    <th>Rediger</th>
+                                    <th></th>
                                 </tr>
                                 <tr v-for="row in settings" :key="row.id">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }}</td>
-                                    <td>{{ row.mapTemp }}</td>
+                                    <td>{{ row.maxTemp }}</td>
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
