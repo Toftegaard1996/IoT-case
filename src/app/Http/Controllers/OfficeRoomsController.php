@@ -47,6 +47,8 @@ class OfficeRoomsController extends Controller
             'noise' => 'nullable|numeric',
             'light' => 'nullable|numeric',
             'motion' => 'nullable|boolean',
+            'brightness' => 'nullable|integer',
+            'mode' => 'nullable|string|max:255',
         ];
     }
 
