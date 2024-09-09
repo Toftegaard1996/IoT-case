@@ -22,14 +22,14 @@ Route::get('/blah', function () {
 Route::get('/', [OfficeRoomsController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('office/store', [OfficeRoomsController::class, 'store']); // Store a new entry with collected data
+//Route::post('office/store', [OfficeRoomsController::class, 'store']); // Store a new entry with collected data
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+//    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
 });
 
 //Resource controller to handle settings for the client devices | Handles get/post/put/delete depending on the function names in the controller
@@ -42,6 +42,11 @@ Route::get('/update-sensor', [OfficeRoomsController::class, 'updateSensorData'])
 Route::get('/displayChart', function () {
     return view('welcome');
 });
+
+// Define a route for the POST request
+Route::post('/office/store', [OfficeRoomsController::class, 'storeOffice']);
+// Define a route for the GET request to retrieve all office rooms data
+Route::get('/office', [OfficeRoomsController::class, 'index']);
 
 
 

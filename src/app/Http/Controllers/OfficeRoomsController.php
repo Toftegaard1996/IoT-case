@@ -11,72 +11,101 @@ use Inertia\Inertia;
 
 class OfficeRoomsController extends Controller
 {
-    public function index()
-    {
-        return Inertia::render('Dashboard', [
-            'officeRoomToday' => OfficeRooms::whereDate('created_at', Carbon::today())->get(),
-            'rooms' => OfficeRooms::all()->unique('roomName'),
-        ]);
-    }
-
-    public function store(OfficeRoomsRequest $request)
-    {
-        $sensorData = OfficeRooms::create([
-            'roomName' => $request->input('roomName'),
-            'temp' => $request->input('temp'),
-            'humidity' => $request->input('humidity'),
-            'noise' => $request->input('noise'),
-            'light' => $request->input('light'),
-            'brightness' => $request->input('brightness'),
-            'mode' => $request->input('mode'),
-            'motion' => $request->input('motion'),
-        ]);
-
-        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
-
-        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
-    }
-
-//     public function store(Request $request)
-//         {
-//             // For testing, log the incoming request data
-//             \Log::info('Sensor data received:', $request->all());
-//
-//             return response()->json(['status' => 'Data received successfully']);
-//         }
-//    public function store(Request $request)
+//    public function index()
 //    {
-//        // Validate the incoming data
-//        $validatedDataUno = $request->validate([
-//            'temp' => 'required|string',
-//            'humidity' => 'required|string',
-//            'noise' => 'required|string',
-//            'light' => 'required|string',
-//            'brightness' => 'required|int',
-//            'mode' => 'required|boolean',
-//            'motion' => 'required|boolean'
+//        return Inertia::render('Dashboard', [
+//            'officeRoomToday' => OfficeRooms::whereDate('created_at', Carbon::today())->get(),
+//            'rooms' => OfficeRooms::all()->unique('roomName'),
+//        ]);
+//    }
+//
+//    public function store(OfficeRoomsRequest $request)
+//    {
+//        $sensorData = OfficeRooms::create([
+//            'roomName' => $request->input('roomName'),
+//            'temp' => $request->input('temp'),
+//            'humidity' => $request->input('humidity'),
+//            'noise' => $request->input('noise'),
+//            'light' => $request->input('light'),
+//            'brightness' => $request->input('brightness'),
+//            'mode' => $request->input('mode'),
+//            'motion' => $request->input('motion'),
 //        ]);
 //
-//        // Create a new sensor data record
-//        $sensorDataUno = OfficeRooms::create($validatedDataUno);
+//        event(new SensorDataUpdated([$sensorData])); // Broadcasting only the newly created data as an array
 //
-//        // Broadcast the event with the new sensor data
-//        event(new SensorDataUpdated([$sensorDataUno])); // Broadcasting only the newly created data as an array
+//        return response()->json(['message' => 'Sensor data saved and event broadcasted'], 201);
+//    }
 //
-//        return response()->json(['message' => 'Save successfull'], 201);
-//    }w
+//    public function updateSensorData()
+//    {
+//        // Retrieve all records as a collection (without pagination)
+//        $allData = OfficeRooms::orderBy('created_at', 'desc')->get();
+//
+//        // Return all the data as a JSON response, but do not broadcast again
+//        return response()->json($allData);
+//    }
 
-    public function updateSensorData()
+//    public function yesterdayData()
+//    {
+//        return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
+//    }
+
+    // Method to handle the POST request
+    public function storeOffice(Request $request)
     {
-        // Retrieve all records as a collection (without pagination)
-        $allData = OfficeRooms::orderBy('created_at', 'desc')->get();
+        // Log incoming request data for debugging
+        Log::info('Incoming Request Data:', $request->all());
 
-        // Return all the data as a JSON response, but do not broadcast again
-        return response()->json($allData);
+        // Try-catch block to catch and log any validation or database errors
+        try {
+            // Validate incoming data
+            $validatedData = $request->validate([
+                'roomName'   => 'required|string|max:255',
+                'temp'       => 'required|numeric',
+                'humidity'   => 'required|numeric',
+                'noise'      => 'required|numeric',
+                'light'      => 'required|numeric',
+                'brightness' => 'required|integer',
+                'mode'       => 'required|string|max:255',
+                'motion'     => 'required|boolean',
+            ]);
+
+            // Log validated data to make sure it’s correct
+            Log::info('Validated Data:', $validatedData);
+
+            // Create a new record in the database
+            $officeRoom = OfficeRooms::create($validatedData);
+
+            // Log success before returning response
+            Log::info('Data successfully saved to the database:', $officeRoom->toArray());
+
+            // Return a response indicating success
+            return response()->json([
+                'message' => 'Sensor data stored successfully',
+                'data'    => $officeRoom
+            ], 201);
+        } catch (\Exception $e) {
+            // Log any errors that occur
+            Log::error('Error storing sensor data:', ['error' => $e->getMessage()]);
+
+            // Return an error response
+            return response()->json([
+                'message' => 'Failed to store sensor data',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
     }
-
-    public function yesterdayData()
+    // Method to handle the GET request (retrieving data)
+    public function index()
     {
-        return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
+        // Retrieve all office room records from the database
+        $officeRooms = OfficeRooms::all();
+
+        // Return the data as a JSON response
+        return response()->json([
+            'message' => 'Office rooms data retrieved successfully',
+            'data'    => $officeRooms
+        ], 200);
     }
 }
