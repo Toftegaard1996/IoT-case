@@ -41,7 +41,7 @@ function submit() {
                         <div>
                             <div class="w-full flex">
                                 <div class="w-1/4 border border-red-500"></div>
-                                <h3 class="ml-24">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
+                                <h3 class="font-bold size-16">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
                             </div>
                             <div>
                                 <form @submit.prevent="submit">
@@ -73,7 +73,7 @@ function submit() {
                                             <InputError :message="form.errors.endHour" class="ml-2" />
                                         </div>
                                     </div>
-                                    <div class="w-full flex">
+                                    <div class="w-full flex mt-4">
                                         <div class="w-1/4"></div>
                                         <GreenButton type="submit" @click="submit">Gem indstillinger</GreenButton>
                                     </div>
