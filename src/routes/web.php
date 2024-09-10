@@ -45,6 +45,7 @@ Route::get('/displayChart', function () {
 });
 // define a route for the get/put request to handle Settings
 Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
+Route::get('setting/edit', [SettingsController::class, 'edit'])->name('settings.edit');
 Route::get('/settings', [SettingsController::class, 'getSettings']);
 Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoomName']);
 Route::put('/settings/update/{roomName}', [SettingsController::class, 'updateByRoomName']);
