@@ -35,6 +35,7 @@ class SettingsController extends Controller
 
     public function store(SettingsRequest $request)
     {
+        dd($request->input('roomName'));
         //Create settings based on given values
         $setting = Settings::create([
             'roomName' => $request->input('roomName'),
@@ -44,7 +45,8 @@ class SettingsController extends Controller
             'startHour' => $request->input('startHour'),
             'endHour' => $request->input('endHour')
         ]);
-        return response()->json($setting, 201);
+        return redirect()->route('settings.index');
+//        return response()->json($setting, 201);
     }
 
     public function edit(Settings $settings)

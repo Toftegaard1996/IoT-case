@@ -24,7 +24,6 @@ console.log(props.settings)
 
 function submit() {
     form.put(route('settings.update', props.settings.roomName))
-    //Inertia.put('/settings/update/' + props.settings.roomName, form)
 }
 </script>
 
