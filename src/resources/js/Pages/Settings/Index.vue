@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from "@inertiajs/vue3";
+import {Head, Link} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import type {OfficeRooms, Settings} from "@/Types";
 import GreenButton from "@/Components/GreenButton.vue";
@@ -55,7 +55,9 @@ function openNewSettingsModal() {
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
                                     <td>
-                                        <GreenButton method="get" :href="route('settings.edit', row)">Rediger</GreenButton>
+                                        <Link methods="get" :href="route('settings.edit', row)">
+                                            <GreenButton>Rediger</GreenButton>
+                                        </Link>
                                     </td>
 
                                 </tr>

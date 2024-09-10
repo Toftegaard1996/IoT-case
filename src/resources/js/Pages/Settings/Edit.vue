@@ -6,6 +6,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import GreenButton from "@/Components/GreenButton.vue";
 import {Settings} from "@/Types";
+import {Link} from "@inertiajs/vue3";
 
 
 const props = defineProps<{
