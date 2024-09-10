@@ -13,6 +13,8 @@ const props = defineProps<{
     settings: Settings[]
 }>()
 
+console.log(route('settings.store'));
+
 const openNewSettings = ref<boolean>(false)
 
 function openNewSettingsModal() {
