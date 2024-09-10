@@ -21,6 +21,7 @@ const form = useForm({
     startHour: props.settings?.startHour,
     endHour: props.settings?.endHour,
 })
+console.log(props.settings.roomName)
 
 function submit() {
     form.put(route('settings.update', props.settings.roomName))
@@ -41,7 +42,7 @@ function submit() {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
-                            <p>Ændre indstillinger</p>
+                            <h3 class="ml-24">Ændre indstillinger</h3>
                             <div>
                                 <div class="mt-3 text-center sm:mt-5">
 
