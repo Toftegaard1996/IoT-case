@@ -5,10 +5,11 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import GreenButton from "@/Components/GreenButton.vue";
+import {Settings} from "@/Types";
 
 
 const props = defineProps<{
-    settings: Object,
+    settings: Settings,
 }>()
 
 const form = useForm({
@@ -21,7 +22,7 @@ const form = useForm({
 })
 
 function submit() {
-    form.put(route('settings.update', props.settings))
+    form.put(route('settings.update', props.settings.roomName))
     //Inertia.put('/client/' + props.client.id, form)
 }
 </script>
