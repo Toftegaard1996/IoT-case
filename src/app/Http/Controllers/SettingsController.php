@@ -35,6 +35,7 @@ class SettingsController extends Controller
 
     public function store(SettingsRequest $request)
     {
+        //Create settings based on given values
         $setting = Settings::create([
             'roomName' => $request->input('roomName'),
             'interval' => $request->input('interval'),
@@ -46,9 +47,12 @@ class SettingsController extends Controller
         return response()->json($setting, 201);
     }
 
-    public function edit()
+    public function edit(Settings $settings)
     {
-        // Implementation if needed
+        //Render edit siden med givet settings row
+        return Inertia::render('Settings/Edit', [
+            'settings' => $settings
+        ]);
     }
 
     public function updateByRoomName(Request $request, $roomName)

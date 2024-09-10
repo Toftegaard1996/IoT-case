@@ -38,7 +38,7 @@ function openNewSettingsModal() {
                                 <GreenButton @click="openNewSettingsModal">+ Ny</GreenButton>
                             </div>
                             <table class="w-full mt-2">
-                                <tr class="border border-red-500">
+                                <tr>
                                     <th>Room name</th>
                                     <th>Interval</th>
                                     <th>Max temp</th>
@@ -47,9 +47,9 @@ function openNewSettingsModal() {
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="text-center border border-red-500">
+                                <tr v-for="row in settings" :key="row.id" class="text-center">
                                     <td>{{ row.roomName }}</td>
-                                    <td>{{ row.interval }}</td>
+                                    <td>{{ row.interval }} min</td>
                                     <td>{{ row.maxTemp }}</td>
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
