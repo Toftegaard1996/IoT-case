@@ -31,10 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 //    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+    Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
+    Route::get('setting/edit/{settings}', [SettingsController::class, 'edit'])->name('settings.edit');
 });
-
-//Resource controller to handle settings for the client devices | Handles get/post/put/delete depending on the function names in the controller
-//Route::resource('settings', SettingsController::class)->except('show', 'create', 'edit', 'destroy');
 
 // Trigger the event  Real Project
 //Route::post('/sensor-data', [OfficeRoomsController::class, 'store']);
@@ -43,9 +42,8 @@ Route::get('/update-sensor', [OfficeRoomsController::class, 'updateSensorData'])
 Route::get('/displayChart', function () {
     return view('welcome');
 });
+
 // define a route for the get/put request to handle Settings
-Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
-Route::get('setting/edit/{settings}', [SettingsController::class, 'edit'])->name('settings.edit');
 Route::get('/settings', [SettingsController::class, 'getSettings']);
 Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoomName']);
 Route::put('/settings/update/{roomName}', [SettingsController::class, 'updateByRoomName'])->name('settings.update');
