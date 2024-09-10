@@ -35,7 +35,6 @@ class SettingsController extends Controller
 
     public function store(SettingsRequest $request)
     {
-        dd($request->input('roomName'));
         //Create settings based on given values
         $setting = Settings::create([
             'roomName' => $request->input('roomName'),
