@@ -6,6 +6,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import GreenButton from "@/Components/GreenButton.vue";
 import {Settings} from "@/Types";
+import {Inertia} from "@inertiajs/inertia";
 
 
 const props = defineProps<{
@@ -20,11 +21,11 @@ const form = useForm({
     startHour: props.settings?.startHour,
     endHour: props.settings?.endHour,
 })
-console.log(props.settings.roomName)
+console.log(props.settings)
 
 function submit() {
-    form.put(route('settings.update', props.settings.roomName))
-    //Inertia.put('/client/' + props.client.id, form)
+    // form.put(route('settings.update', props.settings.roomName))
+    Inertia.put('/settings/update/' + props.settings.roomName, form)
 }
 </script>
 
