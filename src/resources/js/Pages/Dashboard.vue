@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import {OfficeRooms} from "@/Types";
-import GraphView from "@/Components/GraphView.vue";
+// import GraphView from "@/Components/GraphView.vue";
 
 
 const props = defineProps<{
@@ -26,7 +26,7 @@ const props = defineProps<{
                     <div class="p-6 text-gray-900">Here you can see today's graph for temperatures in the office
                         <div v-for="row in rooms" :key="row.id">
                             <p>{{ row.roomName }}</p>
-                            <GraphView />
+<!--                            <GraphView />-->
 
                         </div>
                     </div>
