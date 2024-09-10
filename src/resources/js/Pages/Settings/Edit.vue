@@ -21,7 +21,7 @@ const form = useForm({
 })
 
 function submit() {
-    form.put(route('/', props.settings))
+    form.put(route('settings.update', props.settings))
     //Inertia.put('/client/' + props.client.id, form)
 }
 </script>
@@ -74,7 +74,7 @@ function submit() {
                                         <InputError :message="form.errors.endHour" class="ml-2" />
                                     </div>
                                 </div>
-                                <GreenButton>Gem indstillinger</GreenButton>
+                                <GreenButton type="submit">Gem indstillinger</GreenButton>
                             </div>
                         </div>
                     </div>
