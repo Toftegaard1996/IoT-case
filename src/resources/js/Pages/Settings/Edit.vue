@@ -39,7 +39,10 @@ function submit() {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
-                            <h3 class="ml-24">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
+                            <div class="w-full">
+                                <div class="w-1/4"></div>
+                                <h3 class="ml-24">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
+                            </div>
                             <div>
                                 <div class="mt-3 text-center sm:mt-5">
 
@@ -69,7 +72,10 @@ function submit() {
                                         <InputError :message="form.errors.endHour" class="ml-2" />
                                     </div>
                                 </div>
-                                <GreenButton type="submit">Gem indstillinger</GreenButton>
+                                <div class="w-full">
+                                    <div class="w-1/4"></div>
+                                    <GreenButton type="submit">Gem indstillinger</GreenButton>
+                                </div>
                             </div>
                         </div>
                     </div>
