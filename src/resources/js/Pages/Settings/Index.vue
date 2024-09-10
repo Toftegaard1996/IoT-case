@@ -47,7 +47,7 @@ function openNewSettingsModal() {
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="justify-center border border-red-500">
+                                <tr v-for="row in settings" :key="row.id" class="text-center border border-red-500">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }}</td>
                                     <td>{{ row.maxTemp }}</td>
@@ -65,7 +65,7 @@ function openNewSettingsModal() {
                     </div>
                 </div>
             </div>
-            <FormNewSettings :open="openNewSettings" />
+            <FormNewSettings :open="openNewSettings" @close="openNewSettings = false" />
         </div>
     </AuthenticatedLayout>
 </template>

@@ -13,6 +13,10 @@ const props = defineProps<{
     open: Boolean,
 }>()
 
+defineEmits<{
+    close: [state: Boolean]
+}>()
+
 const form = useForm({
     roomName : '',
     interval: '',
@@ -28,8 +32,8 @@ function submit(){
 </script>
 
 <template>
-    <TransitionRoot as="template" :show="open">
-        <Dialog class="relative z-10" @close="open = false">
+    <TransitionRoot as="template" :show="props.open">
+        <Dialog class="relative z-10" @close="$emit('close', true)">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
             </TransitionChild>
@@ -75,9 +79,9 @@ function submit(){
 
                                 </div>
                             </div>
-                            <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                                <GreenButton type="submit" class="inline-flex w.full justify-center" @click="open = false">Gem</GreenButton>
-                                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="open = false" ref="cancelButtonRef">Cancel</button>
+                            <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3 md:flex">
+                                <GreenButton type="submit" class="inline-flex w.full justify-center" @close="$emit('close', true)">Gem</GreenButton>
+                                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @close="$emit('close', true)" ref="cancelButtonRef">Cancel</button>
                             </div>
                         </DialogPanel>
                     </TransitionChild>
