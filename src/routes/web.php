@@ -40,7 +40,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // Trigger the event  Real Project
-//Route::post('/sensor-data', [OfficeRoomsController::class, 'store']);
 Route::get('/update-sensor', [OfficeRoomsController::class, 'updateSensorData']);
 
 Route::get('/displayChart', function () {
