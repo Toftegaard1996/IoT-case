@@ -40,7 +40,7 @@ function submit() {
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
                             <div class="w-full">
-                                <div class="w-1/4"></div>
+                                <div class="w-1/4 border border-red-500"></div>
                                 <h3 class="ml-24">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
                             </div>
                             <div>
@@ -74,7 +74,7 @@ function submit() {
                                 </div>
                                 <div class="w-full">
                                     <div class="w-1/4"></div>
-                                    <GreenButton type="submit">Gem indstillinger</GreenButton>
+                                    <GreenButton type="submit" @click="submit">Gem indstillinger</GreenButton>
                                 </div>
                             </div>
                         </div>
