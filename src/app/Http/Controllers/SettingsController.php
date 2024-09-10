@@ -12,6 +12,8 @@ class SettingsController extends Controller
 {
     public function index()
     {
+        //Code for converting to Fahrenheit?
+
         return Inertia::render('Settings/Index', [
             'settings' => Settings::all(),
             'rooms' => OfficeRooms::all()->unique('roomName'),
