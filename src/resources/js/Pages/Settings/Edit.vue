@@ -13,14 +13,13 @@ const props = defineProps<{
 }>()
 
 const form = useForm({
-    roomName: props.settings?.roomName,
     interval: props.settings?.interval,
     maxTemp: props.settings?.maxTemp,
     minTemp: props.settings?.minTemp,
     startHour: props.settings?.startHour,
     endHour: props.settings?.endHour,
 })
-console.log(props.settings)
+console.log(props.settings.roomName)
 
 function submit() {
     form.put(route('settings.update', props.settings.roomName))
@@ -40,15 +39,10 @@ function submit() {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
-                            <h3 class="ml-24">Ændre indstillinger</h3>
+                            <h3 class="ml-24">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
                             <div>
                                 <div class="mt-3 text-center sm:mt-5">
 
-                                    <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                        <InputLabel for="country" class="text-right w-1/4">Rum navn</InputLabel>
-                                        <TextInput v-model="form.roomName" class="w-1/2 ml-5" />
-                                        <InputError :message="form.errors.roomName" class="ml-2" />
-                                    </div>
                                     <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
                                         <InputLabel for="country" class="text-right w-1/4">Interval</InputLabel>
                                         <TextInput v-model="form.interval" class="w-1/2 ml-5" />

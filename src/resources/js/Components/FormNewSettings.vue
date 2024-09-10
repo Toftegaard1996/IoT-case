@@ -23,6 +23,8 @@ const form = useForm({
     endHour: ''
 })
 
+console.log(route('settings.store'));
+
 function submit(){
     form.post(route('settings.store'));
 }

@@ -77,7 +77,8 @@ class SettingsController extends Controller
         ]);
 
         // Return the updated setting
-        return response()->json($setting, 200);
+        return redirect()->route('settings.index');
+//        return response()->json($setting, 200);
     }
 
     public function destroy($id)
