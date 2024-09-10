@@ -31,8 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 //    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+
+    //Setting routes for frontend
     Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('settings/store', [SettingsController::class, 'store'])->name('settings.store');
     Route::get('setting/edit/{settings}', [SettingsController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/update/{roomName}', [SettingsController::class, 'updateByRoomName'])->name('settings.update');
 });
 
 // Trigger the event  Real Project
@@ -43,10 +47,10 @@ Route::get('/displayChart', function () {
     return view('welcome');
 });
 
-// define a route for the get/put request to handle Settings
+// define a route for the get/put request to handle Settings | Setting route for Pi
 Route::get('/settings', [SettingsController::class, 'getSettings']);
 Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoomName']);
-Route::put('/settings/update/{roomName}', [SettingsController::class, 'updateByRoomName'])->name('settings.update');
+
 
 
 // Define a route for the POST request
