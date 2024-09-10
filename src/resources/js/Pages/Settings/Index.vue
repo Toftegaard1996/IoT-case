@@ -55,7 +55,7 @@ function openNewSettingsModal() {
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
                                     <td>
-                                        <GreenButton>Rediger</GreenButton>
+                                        <GreenButton method="get" :href="route('settings.edit', row)">Rediger</GreenButton>
                                     </td>
 
                                 </tr>

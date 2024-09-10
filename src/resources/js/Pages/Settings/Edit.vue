@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import {Head} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import type {OfficeRooms, Settings} from "@/Types";
-import FormNewSettings from "@/Components/FormNewSettings.vue";
-import {ref} from "vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
+import GreenButton from "@/Components/GreenButton.vue";
 
 
 const props = defineProps<{
-    officeRoomToday: OfficeRooms[]
-    rooms: OfficeRooms[]
-    settings: Settings[]
+    settings: Object,
 }>()
 
-const openNewSettings = ref<boolean>(false)
+const form = useForm({
+    roomName: props.settings?.roomName,
+    interval: props.settings?.interval,
+    maxTemp: props.settings?.maxTemp,
+    minTemp: props.settings?.minTemp,
+    startHour: props.settings?.startHour,
+    endHour: props.settings?.endHour,
+})
 
-function openNewSettingsModal() {
-    openNewSettings.value = true;
+function submit() {
+    form.put(route('/', props.settings))
+    //Inertia.put('/client/' + props.client.id, form)
 }
 </script>
 
@@ -69,15 +73,13 @@ function openNewSettingsModal() {
                                         <TextInput v-model="form.endHour" class="w-1/2 ml-5" placeholder="16:00"/>
                                         <InputError :message="form.errors.endHour" class="ml-2" />
                                     </div>
-
                                 </div>
+                                <GreenButton>Gem indstillinger</GreenButton>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-            <FormNewSettings :open="openNewSettings" @close="openNewSettings = false" />
         </div>
     </AuthenticatedLayout>
 </template>
