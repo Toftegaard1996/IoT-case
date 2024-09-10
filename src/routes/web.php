@@ -54,7 +54,7 @@ Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoo
 
 
 // Define a route for the POST request
-Route::post('/office/store', [OfficeRoomsController::class, 'storeOffice']);
+Route::post('/office/store', [OfficeRoomsController::class, 'store']);
 // Define a route for the GET request to retrieve all office rooms data
 Route::get('/office', [OfficeRoomsController::class, 'index']);
 
