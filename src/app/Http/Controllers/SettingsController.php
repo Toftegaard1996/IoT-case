@@ -94,6 +94,17 @@ class SettingsController extends Controller
             return response()->json(['message' => 'No settings found'], 404);
         }
     }
+        // In SettingsController.php
+    public function getSettingsByRoomName($roomName)
+    {
+        $setting = Settings::where('roomName', $roomName)->first();
+        if ($setting) {
+            return response()->json($setting);
+        } else {
+            return response()->json(['message' => 'Setting not found'], 404);
+        }
+    }
+
 }
 
 
