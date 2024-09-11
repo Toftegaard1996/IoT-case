@@ -60,7 +60,7 @@ console.log(props.settings.celcius)
                                 <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b pb-4 border-red-300">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
-                                    <td>{{ 'row.celcius'? row.maxTemp : convertFahrenheit(row.maxTemp) }}</td>
+                                    <td>{{ 'row.celcius'? row.maxTemp + 'C' : convertFahrenheit(row.maxTemp) + 'F' }}</td>
 <!--                                    <td>{{// row.celcius}}</td>-->
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
