@@ -29,19 +29,6 @@ Chart.register(
   TimeScale
 );
 
-// Listen for real-time updates
-setTimeout(() => {
-    const sensorChannel = window.Echo.channel('sensor-channel');
-    console.log('Subscribed to sensor-channel');
-
-    sensorChannel.listen('SensorDataUpdated', (e) => {
-        console.log('New sensor data received:', e.sensorData);
-
-        // Fetch all data again to ensure consistency
-        this.renderChart();
-    });
-}, 200);
-
 export default {
   // Definer props som komponenten modtager
   props: {
@@ -56,6 +43,18 @@ export default {
     console.log("Temperatur Data:", this.temperatureData); // Debugging log
     // Kald renderChart metoden når komponenten er monteret
     this.renderChart();
+      // Listen for real-time updates
+      setTimeout(() => {
+          const sensorChannel = window.Echo.channel('sensor-channel');
+          console.log('Subscribed to sensor-channel');
+
+          sensorChannel.listen('SensorDataUpdated', (e) => {
+              console.log('New sensor data received:', e.sensorData);
+
+              // Fetch all data again to ensure consistency
+              this.renderChart();
+          });
+      }, 200);
   },
   methods: {
     renderChart() {
@@ -144,17 +143,6 @@ export default {
   },
 };
 
-// // Listen for real-time updates
-// setTimeout(() => {
-//     const sensorChannel = window.Echo.channel('sensor-channel');
-//     console.log('Subscribed to sensor-channel');
-//
-//     sensorChannel.listen('SensorDataUpdated', (e) => {
-//         console.log('New sensor data received:', e.sensorData);
-//
-//         // Fetch all data again to ensure consistency
-//         this.renderChart();
-//     });
-// }, 200);
+
 
 </script>
