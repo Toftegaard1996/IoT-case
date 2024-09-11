@@ -66,6 +66,7 @@ export default {
                 // Update the local temperature data, not the prop
                 this.localTemperatureData = [...e.sensorData];
                 this.renderChart();
+                location.reload();
             });
         }, 200);
     },
