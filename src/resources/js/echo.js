@@ -25,3 +25,5 @@ window.Echo = new Echo({
     enabledTransports: ['ws'], // Allow WebSocket
 });
 
+console.log(window.Echo);
+console.log('Echo initialized:', window.Echo);

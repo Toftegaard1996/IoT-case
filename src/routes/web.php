@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/yesterdayGraph', [OfficeRoomsController::class, 'yesterdayData'])->name('yesterdayGraph');
+//    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
 
     //Setting routes for frontend
     Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
@@ -50,7 +50,7 @@ Route::get('/displayChart', function () {
 Route::get('/settings', [SettingsController::class, 'getSettings']);
 Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoomName']);
 
-
+Route::get('/update-sensorUno', [SensorController::class, 'updateSensorUno']);
 
 // Define a route for the POST request
 Route::post('/office/store', [OfficeRoomsController::class, 'store']);

@@ -71,9 +71,37 @@ const groupDataByRoom = async () => {
   groupedData.value = grouped;
 };
 
+// Funktion til at opdatere sensor data fra serveren
+const refreshSensorData = async () => {
+  console.log("Fetching all data from server...");
+  try {
+    const response = await axios.get("/update-sensorUno");
+    console.log("Data fetched from server:", response.data);
+    sensorData.value = response.data;
+    await groupDataByRoom();
+  } catch (error) {
+    console.error("Error fetching data from server:", error);
+  }
+};
+
+// Funktion til at opsætte real-time opdateringer
+const setupRealTimeUpdates = () => {
+  setTimeout(() => {
+    const sensorChannel = window.Echo.channel("sensor-channel");
+    console.log("Subscribed to sensor-channel");
+
+    sensorChannel.listen("SensorDataUpdated", async (e) => {
+      console.log("New sensor data received:", e.sensorData);
+      // Fetch all data again to ensure consistency
+      await refreshSensorData();
+    });
+  }, 200);
+};
+
 // Kør fetchSensorData når komponenten er monteret
 onMounted(() => {
   fetchSensorData();
+  setupRealTimeUpdates();
 });
 </script>
 
