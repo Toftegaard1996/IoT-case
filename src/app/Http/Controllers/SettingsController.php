@@ -13,13 +13,6 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Settings::all();
-//        foreach ($settings as $setting) {
-//            if ($setting->celcius === 0) {
-//                $setting->celcius = false;
-//            } else {
-//                $setting->celcius = true;
-//            }
-//        }
             return Inertia::render('Settings/Index', [
                 'settings' => $settings,
                 'rooms' => OfficeRooms::all()->unique('roomName'),
