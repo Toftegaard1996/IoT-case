@@ -17,13 +17,13 @@ const props = defineProps<{
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dagens grafer</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Gårsdagens grafer</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">Here you can see yesterday's graph for temperatures in the office
+                    <div class="p-6 text-gray-900">Her kan du se graferne fra i går
                         <div v-for="row in rooms" :key="row.id">
                             <p>{{ row.roomName }}</p>
                             <GraphView />

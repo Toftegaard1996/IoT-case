@@ -5,7 +5,6 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import GreenButton from "@/Components/GreenButton.vue";
-import {Settings} from "@/Types";
 
 
 const props = defineProps<{
@@ -20,7 +19,6 @@ const form = useForm({
     startHour: props.settings?.startHour,
     endHour: props.settings?.endHour,
 })
-console.log(props.settings.roomName)
 
 function submit() {
     form.put(route('settings.update', props.settings.roomName))
@@ -55,7 +53,7 @@ function submit() {
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
                                             <InputLabel for="celcius" class="text-right w-1/4">Temperatur format</InputLabel>
-                                            <input v-model.checkbox="form.celcius" type="checkbox" value="checked" class="rounded-sm mx-5" />
+                                            <input v-model.checkbox="form.celcius" type="checkbox" class="rounded-sm mx-5" />
                                             <InputLabel class="text-right">Celcius</InputLabel>
                                             <InputError :message="form.errors.celcius" class="ml-2" />
                                         </div>

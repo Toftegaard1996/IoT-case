@@ -41,7 +41,7 @@ function convertFahrenheit($c) {
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
                             <h3 class="font-bold size-16 w-full">Oversigt over indstillinger</h3>
-                            <div class="mt-4">
+                            <div class="my-2">
                                 <GreenButton @click="openNewSettingsModal">+ Ny</GreenButton>
                             </div>
                             <table class="w-full mt-2">
@@ -65,7 +65,7 @@ function convertFahrenheit($c) {
                                     <td>{{ row.endHour }}</td>
                                     <td>
                                         <Link methods="get" :href="route('settings.edit', row)">
-                                            <GreenButton >Rediger</GreenButton>
+                                            <GreenButton>Rediger</GreenButton>
                                         </Link>
                                     </td>
 
