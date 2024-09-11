@@ -25,7 +25,7 @@ function convertFahrenheit($c) {
     return Fahrenheit
 }
 
-console.log(props.settings)
+console.log(props.settings.celcius)
 
 </script>
 
