@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>{{ roomName }} Temperature Graph</h2>
     <canvas :id="'chart-' + roomName"></canvas>
   </div>
 </template>
@@ -18,7 +17,7 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 
-// Register necessary components explicitly
+// Registrer nødvendige komponenter eksplicit
 Chart.register(
   LineController,
   LineElement,
@@ -35,24 +34,32 @@ export default {
     temperatureData: Array,
   },
   mounted() {
-    console.log("Temperature Data:", this.temperatureData); // Debugging log
+    console.log("Temperatur Data:", this.temperatureData); // Debugging log
     this.renderChart();
   },
   methods: {
     renderChart() {
-      const labels = this.temperatureData.map((data, index) => {
-        console.log(`Data Item ${index}:`, data); // Debugging log
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Sæt til starten af dagen
+
+      const filteredData = this.temperatureData.filter((data) => {
         const date = new Date(data.created_at);
-        console.log("Raw created_at:", data.created_at); // Debugging log
-        console.log("Parsed Date:", date); // Debugging log
+        return date >= today;
+      });
+
+      const labels = filteredData.map((data, index) => {
+        console.log(`Data Element ${index}:`, data); // Debugging log
+        const date = new Date(data.created_at);
+        console.log("Rå created_at:", data.created_at); // Debugging log
+        console.log("Parset Dato:", date); // Debugging log
         return date;
       });
 
-      const temperatures = this.temperatureData.map((data, index) => {
-        console.log(`Data Item ${index}:`, data); // Debugging log
+      const temperatures = filteredData.map((data, index) => {
+        console.log(`Data Element ${index}:`, data); // Debugging log
         const temp = parseFloat(data.temp);
-        console.log("Raw temp:", data.temp); // Debugging log
-        console.log("Parsed Temperature:", temp); // Debugging log
+        console.log("Rå temp:", data.temp); // Debugging log
+        console.log("Parset Temperatur:", temp); // Debugging log
         return temp;
       });
 
@@ -65,7 +72,7 @@ export default {
           labels: labels,
           datasets: [
             {
-              label: "Temperature",
+              label: "Temperatur",
               data: temperatures,
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
@@ -86,7 +93,7 @@ export default {
               },
               title: {
                 display: true,
-                text: "Timestamp",
+                text: "Tidsstempel",
               },
             },
             y: {
@@ -94,7 +101,7 @@ export default {
               beginAtZero: true,
               title: {
                 display: true,
-                text: "Temperature (°C)",
+                text: "Temperatur (°C)",
               },
             },
           },
