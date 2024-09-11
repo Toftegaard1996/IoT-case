@@ -32,7 +32,7 @@ Chart.register(
 export default {
     props: {
         roomName: String,
-        temperatureData: Array,
+        temperatureData: Array, // Array of temperature data received as a prop
         showYesterday: {
             type: Boolean,
             default: false,
@@ -40,14 +40,22 @@ export default {
     },
     data() {
         return {
-            chartInstance: null, // Store the chart instance here
+            chartInstance: null,  // Store the chart instance here
+            localTemperatureData: [...this.temperatureData], // Copy prop to local data
         };
     },
+    watch: {
+        // Watch for changes in the prop and update the local data property
+        temperatureData(newData) {
+            this.localTemperatureData = [...newData];
+            this.renderChart();  // Re-render the chart when temperatureData changes
+        }
+    },
     mounted() {
-        console.log("Temperatur Data:", this.temperatureData);
+        console.log("Initial Temperatur Data:", this.localTemperatureData); // Debugging log
         this.renderChart();
 
-        // Use setTimeout to listen for real-time updates after mounting
+        // Listen for real-time updates after mounting
         setTimeout(() => {
             const sensorChannel = window.Echo.channel('sensor-channel');
             console.log('Subscribed to sensor-channel');
@@ -55,8 +63,8 @@ export default {
             sensorChannel.listen('SensorDataUpdated', (e) => {
                 console.log('New sensor data received:', e.sensorData);
 
-                // Update the temperature data and re-render the chart
-                this.temperatureData = e.sensorData;
+                // Update the local temperature data, not the prop
+                this.localTemperatureData = [...e.sensorData];
                 this.renderChart();
             });
         }, 200);
@@ -78,17 +86,17 @@ export default {
                 ? new Date(today.setDate(today.getDate() + 1))
                 : new Date();
 
-            const filteredData = this.temperatureData.filter((data) => {
+            const filteredData = this.localTemperatureData.filter((data) => {
                 const date = new Date(data.created_at);
                 return date >= startDate && date < endDate;
             });
 
-            const labels = filteredData.map((data, index) => {
+            const labels = filteredData.map((data) => {
                 const date = new Date(data.created_at);
                 return date;
             });
 
-            const temperatures = filteredData.map((data, index) => {
+            const temperatures = filteredData.map((data) => {
                 const temp = parseFloat(data.temp);
                 return temp;
             });
