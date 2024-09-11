@@ -49,5 +49,15 @@ class OfficeRoomsController extends Controller
     {
         return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
     }
+    
+        public function overview()
+    {
+        // Fetch necessary data for the overview page
+        $sensorData = Sensor::all(); // Adjust this to fetch the required data
+
+        return Inertia::render('Overview', [
+            'sensorData' => $sensorData,
+        ]);
+    }
 
 }

@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+//    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+
     //Setting routes for frontend
     Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('settings/store', [SettingsController::class, 'store'])->name('settings.store');
@@ -39,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
 // Trigger the event  Real Project
 Route::get('/update-sensor', [OfficeRoomsController::class, 'updateSensorData']);
+
 Route::get('/displayChart', function () {
     return view('welcome');
 });
@@ -47,6 +50,8 @@ Route::get('/displayChart', function () {
 Route::get('/settings', [SettingsController::class, 'getSettings']);
 Route::get('/settings/{roomName}', [SettingsController::class, 'getSettingsByRoomName']);
 
+
+
 // Define a route for the POST request
 Route::post('/office/store', [OfficeRoomsController::class, 'store']);
 // Define a route for the GET request to retrieve all office rooms data
@@ -54,6 +59,13 @@ Route::get('/office', [OfficeRoomsController::class, 'index']);
 
 // Define a route for the POST request to handle motion sensor data
 Route::post('/motion-sensors', [MotionSensorController::class, 'store']);
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/overview', function () {
+        return Inertia::render('Overview/Overview');
+    })->name('overview');
+});
 
 
 require __DIR__.'/auth.php';
