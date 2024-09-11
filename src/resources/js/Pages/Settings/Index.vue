@@ -10,7 +10,7 @@ import {ref} from "vue";
 const props = defineProps<{
     officeRoomToday: OfficeRooms[]
     rooms: OfficeRooms[]
-    settings: Settings[]
+    settings: Object
 }>()
 
 const openNewSettings = ref<boolean>(false)
