@@ -130,4 +130,18 @@ export default {
     },
   },
 };
+
+// Listen for real-time updates
+setTimeout(() => {
+    const sensorChannel = window.Echo.channel('sensor-channel');
+    console.log('Subscribed to sensor-channelUno');
+
+    sensorChannel.listen('SensorDataUpdated', (e) => {
+        console.log('New sensor data received:', e.sensorData);
+
+        // Fetch all data again to ensure consistency
+        //renderChart();
+    });
+}, 200);
+
 </script>
