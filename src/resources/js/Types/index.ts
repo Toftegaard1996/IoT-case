@@ -13,6 +13,7 @@ export interface Settings {
     id: number;
     roomName: string;
     interval: string;
+    celcius: boolean;
     maxTemp: string;
     minTemp: string;
     startHour: string;
