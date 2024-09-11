@@ -71,10 +71,10 @@ export default {
     },
     methods: {
         renderChart() {
-            // Destroy the existing chart if it exists
-            // if (this.chartInstance) {
-            //     this.chartInstance.destroy();
-            // }
+            //Destroy the existing chart if it exists
+            if (this.chartInstance) {
+                this.chartInstance.destroy();
+            }
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
