@@ -71,6 +71,7 @@ export default {
     },
     methods: {
         renderChart() {
+
             //Destroy the existing chart if it exists
             if (this.chartInstance) {
                 this.chartInstance.destroy();
@@ -145,10 +146,11 @@ export default {
                     },
                 },
             });
+            console.log('Filtered Data:', filteredData);
+            console.log('Labels:', labels);
+            console.log('Temperatures:', temperatures);
         },
     },
 };
-
-
 
 </script>
