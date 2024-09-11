@@ -10,7 +10,7 @@ import {ref} from "vue";
 const props = defineProps<{
     officeRoomToday: OfficeRooms[]
     rooms: OfficeRooms[]
-    settings: Object
+    settings: Settings[]
 }>()
 
 const openNewSettings = ref<boolean>(false)
@@ -58,12 +58,11 @@ console.log(props.settings.celcius)
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b pb-4 border-red-300">
+                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b pb-4 border-green-300">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
                                     <td>{{ 'row.celcius'? 'Celcius' : 'Fahrenheit' }} </td>
                                     <td>{{ 'row.celcius'? row.maxTemp + ' C' : convertFahrenheit(row.maxTemp) + ' F' }}</td>
-<!--                                    <td>{{// row.celcius}}</td>-->
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>

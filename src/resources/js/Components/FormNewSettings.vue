@@ -87,8 +87,8 @@ function submit(){
                                     </div>
                                 </div>
                                 <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3 md:flex">
-                                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @close="$emit('close', true)" ref="cancelButtonRef">Cancel</button>
-                                    <GreenButton type="submit" class="inline-flex w-full justify-center">Gem</GreenButton>
+                                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="$emit('close', true)" ref="cancelButtonRef">Cancel</button>
+                                    <GreenButton type="submit" class="inline-flex w-full justify-center" @click="$emit('close', true)">Gem</GreenButton>
                                 </div>
                             </form>
                         </DialogPanel>
