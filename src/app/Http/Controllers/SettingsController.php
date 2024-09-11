@@ -20,9 +20,6 @@ class SettingsController extends Controller
                 $setting->celcius = true;
             }
         }
-
-        dd($settings);
-
             return Inertia::render('Settings/Index', [
                 'settings' => $settings,
                 'rooms' => OfficeRooms::all()->unique('roomName'),
