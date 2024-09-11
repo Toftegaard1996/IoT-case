@@ -21,6 +21,7 @@ class SettingsRequest extends FormRequest
         return [
             'roomName' => 'required',
             'interval' => 'string',
+            'celcius' => 'boolean',
             'maxTemp' => 'string',
             'minTemp' => 'string',
             'startHour' => 'string',

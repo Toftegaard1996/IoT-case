@@ -22,6 +22,5 @@ class OfficeRooms extends Model
         'light',
         'brightness',
         'mode',
-        'motion',
     ];
 }
