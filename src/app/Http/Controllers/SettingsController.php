@@ -41,13 +41,13 @@ class SettingsController extends Controller
         $setting = Settings::create([
             'roomName' => $request->input('roomName'),
             'interval' => $request->input('interval'),
+            'celcius' => $request->input('celcius'),
             'maxTemp' => $request->input('maxTemp'),
             'minTemp' => $request->input('minTemp'),
             'startHour' => $request->input('startHour'),
             'endHour' => $request->input('endHour')
         ]);
         return redirect()->back();
-//            redirect()->route('settings.index');
 //        return response()->json($setting, 201);
     }
 
@@ -72,6 +72,7 @@ class SettingsController extends Controller
         // Update the setting with new data from the request
         $setting->update([
             'interval' => $request->input('interval'),
+            'celcius' => $request->input('celcius'),
             'maxTemp' => $request->input('maxTemp'),
             'minTemp' => $request->input('minTemp'),
             'startHour' => $request->input('startHour'),

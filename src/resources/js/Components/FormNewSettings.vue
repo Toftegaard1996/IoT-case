@@ -17,6 +17,7 @@ defineEmits<{
 const form = useForm({
     roomName : '',
     interval: '',
+    celcius: true,
     maxTemp: '',
     minTemp: '',
     startHour: '',
@@ -46,32 +47,38 @@ function submit(){
 
 
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Rum navn</InputLabel>
+                                            <InputLabel for="roomName" class="text-right w-1/4">Rum navn</InputLabel>
                                             <TextInput v-model="form.roomName" class="w-1/2 ml-5" />
                                             <InputError :message="form.errors.roomName" class="ml-2" />
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Interval</InputLabel>
+                                            <InputLabel for="interval" class="text-right w-1/4">Interval</InputLabel>
                                             <TextInput v-model="form.interval" class="w-1/2 ml-5" />
                                             <InputError :message="form.errors.interval" class="ml-2" />
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Max Temp</InputLabel>
+                                            <InputLabel for="celcius" class="text-right w-1/4">Temperatur format</InputLabel>
+                                            <input v-model.checkbox="form.celcius" type="checkbox" class="rounded-sm w-1/4 ml-5" />
+                                            <InputLabel for="country" class="text-right">Celcius</InputLabel>
+                                            <InputError :message="form.errors.celcius" class="ml-2" />
+                                        </div>
+                                        <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
+                                            <InputLabel for="maxTemp" class="text-right w-1/4">Max Temp</InputLabel>
                                             <TextInput v-model="form.maxTemp" class="w-1/2 ml-5" />
                                             <InputError :message="form.errors.maxTemp" class="ml-2" />
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Min Temp</InputLabel>
+                                            <InputLabel for="minTemp" class="text-right w-1/4">Min Temp</InputLabel>
                                             <TextInput v-model="form.minTemp" class="w-1/2 ml-5" />
                                             <InputError :message="form.errors.minTemp" class="ml-2" />
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Start Tid</InputLabel>
+                                            <InputLabel for="startHour" class="text-right w-1/4">Start Tid</InputLabel>
                                             <TextInput v-model="form.startHour" class="w-1/2 ml-5" placeholder="08:00" />
                                             <InputError :message="form.errors.startHour" class="ml-2" />
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
-                                            <InputLabel for="country" class="text-right w-1/4">Slut Tid</InputLabel>
+                                            <InputLabel for="endHour" class="text-right w-1/4">Slut Tid</InputLabel>
                                             <TextInput v-model="form.endHour" class="w-1/2 ml-5" placeholder="16:00"/>
                                             <InputError :message="form.errors.endHour" class="ml-2" />
                                         </div>

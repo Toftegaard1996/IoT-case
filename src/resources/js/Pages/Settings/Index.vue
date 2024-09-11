@@ -55,17 +55,17 @@ function convertFahrenheit($c) {
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b border-red-300 pb-2">
+                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b pb-4 border-red-300">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
                                     <td>{{ row.interval }}</td>
-                                    <td>{{'blah'? row.maxTemp : convertFahrenheit(row.maxTemp) }}</td>
+                                    <td>{{'row.celcius'? row.maxTemp : convertFahrenheit(row.maxTemp) }}</td>
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
                                     <td>
                                         <Link methods="get" :href="route('settings.edit', row)">
-                                            <GreenButton>Rediger</GreenButton>
+                                            <GreenButton >Rediger</GreenButton>
                                         </Link>
                                     </td>
 
