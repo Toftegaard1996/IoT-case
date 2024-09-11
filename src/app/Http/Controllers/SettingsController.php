@@ -14,7 +14,7 @@ class SettingsController extends Controller
     {
         $settings = Settings::all();
         foreach ($settings as $setting) {
-            if ($setting->celcius == 0) {
+            if ($setting->celcius === 0) {
                 $setting->celcius = false;
             } else {
                 $setting->celcius = true;
