@@ -14,7 +14,7 @@ const props = defineProps<{
 
 const form = useForm({
     interval: props.settings?.interval,
-    celcius: props.settings.celcius,
+    celcius: props.settings?.celcius,
     maxTemp: props.settings?.maxTemp,
     minTemp: props.settings?.minTemp,
     startHour: props.settings?.startHour,
@@ -55,7 +55,7 @@ function submit() {
                                         </div>
                                         <div class="flex flex-row px-2 py-2 items-center w-full pb-4 mt-2">
                                             <InputLabel for="celcius" class="text-right w-1/4">Temperatur format</InputLabel>
-                                            <input v-model.checkbox="form.celcius" type="checkbox" class="rounded-sm mx-5" />
+                                            <input v-model.checkbox="form.celcius" type="checkbox" value="checked" class="rounded-sm mx-5" />
                                             <InputLabel class="text-right">Celcius</InputLabel>
                                             <InputError :message="form.errors.celcius" class="ml-2" />
                                         </div>
