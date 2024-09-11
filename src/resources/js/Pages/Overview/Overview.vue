@@ -1,3 +1,61 @@
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import {Head} from "@inertiajs/vue3";
+
+const sensorData = ref([]);
+const groupedData = ref({});
+
+const fetchSensorData = async () => {
+    try {
+        const response = await axios.get("http://192.168.1.125:8000/update-sensor");
+        console.log("API Response:", response.data); // Debugging log
+        sensorData.value = response.data;
+        await groupDataByRoom();
+    } catch (error) {
+        console.error("Error fetching sensor data:", error);
+    }
+};
+
+const fetchRoomSettings = async (roomName) => {
+    try {
+        const response = await axios.get(
+            `http://192.168.1.125:8000/settings/${roomName}`
+        );
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching settings for room ${roomName}:`, error);
+        return null;
+    }
+};
+
+const groupDataByRoom = async () => {
+    const grouped = sensorData.value.reduce((acc, data) => {
+        if (!acc[data.roomName]) {
+            acc[data.roomName] = [];
+        }
+        acc[data.roomName].push({
+            temp: parseFloat(data.temp),
+            humidity: parseFloat(data.humidity),
+            created_at: data.created_at ? new Date(data.created_at) : new Date(),
+        });
+        return acc;
+    }, {});
+
+    for (const roomName in grouped) {
+        const settings = await fetchRoomSettings(roomName);
+        grouped[roomName].settings = settings;
+    }
+
+    groupedData.value = grouped;
+};
+
+onMounted(() => {
+    fetchSensorData();
+});
+</script>
+
 <template>
   <Head title="Dagens graf" />
 
@@ -39,62 +97,6 @@
     </div>
   </AuthenticatedLayout>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-import axios from "axios";
-
-const sensorData = ref([]);
-const groupedData = ref({});
-
-const fetchSensorData = async () => {
-  try {
-    const response = await axios.get("http://192.168.1.125:8000/update-sensor");
-    console.log("API Response:", response.data); // Debugging log
-    sensorData.value = response.data;
-    await groupDataByRoom();
-  } catch (error) {
-    console.error("Error fetching sensor data:", error);
-  }
-};
-
-const fetchRoomSettings = async (roomName) => {
-  try {
-    const response = await axios.get(
-      `http://192.168.1.125:8000/settings/${roomName}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching settings for room ${roomName}:`, error);
-    return null;
-  }
-};
-
-const groupDataByRoom = async () => {
-  const grouped = sensorData.value.reduce((acc, data) => {
-    if (!acc[data.roomName]) {
-      acc[data.roomName] = [];
-    }
-    acc[data.roomName].push({
-      temp: parseFloat(data.temp),
-      humidity: parseFloat(data.humidity),
-      created_at: data.created_at ? new Date(data.created_at) : new Date(),
-    });
-    return acc;
-  }, {});
-
-  for (const roomName in grouped) {
-    const settings = await fetchRoomSettings(roomName);
-    grouped[roomName].settings = settings;
-  }
-
-  groupedData.value = grouped;
-};
-
-onMounted(() => {
-  fetchSensorData();
-});
-</script>
 
 <style scoped>
 .room-overview {
