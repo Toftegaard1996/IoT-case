@@ -14,7 +14,7 @@ const props = defineProps<{
 
 const form = useForm({
     interval: props.settings?.interval,
-    celcius: props.settings.celcius,
+    celcius: props.settings?.celcius,
     maxTemp: props.settings?.maxTemp,
     minTemp: props.settings?.minTemp,
     startHour: props.settings?.startHour,
