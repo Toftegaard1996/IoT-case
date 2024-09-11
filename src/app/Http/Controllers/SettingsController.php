@@ -21,6 +21,7 @@ class SettingsController extends Controller
             }
         }
 
+        dd($settings);
 
             return Inertia::render('Settings/Index', [
                 'settings' => $settings,
