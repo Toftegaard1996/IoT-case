@@ -40,8 +40,8 @@ function submit() {
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
                             <div class="w-full flex">
-                                <div class="w-1/4 border border-red-500"></div>
-                                <h3 class="font-bold size-16">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
+                                <div class="w-1/4"></div>
+                                <h3 class="font-bold w-full size-16">Ændre indstillinger for lokale {{ props.settings.roomName }}</h3>
                             </div>
                             <div>
                                 <form @submit.prevent="submit">

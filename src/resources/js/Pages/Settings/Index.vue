@@ -55,7 +55,7 @@ function convertFahrenheit($c) {
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b border-red-300">
+                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b border-red-300 pb-2">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
                                     <td>{{ row.interval }}</td>
