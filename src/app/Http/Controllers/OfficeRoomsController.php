@@ -47,9 +47,12 @@ class OfficeRoomsController extends Controller
 
     public function yesterdayData()
     {
-        return OfficeRooms::whereDate('created_at', Carbon::yesterday())->get();
+        return Inertia::render('Graphs/Yesterday', [
+            'officeRoomToday' => OfficeRooms::whereDate('created_at', Carbon::yesterday())->get(),
+            'rooms' => OfficeRooms::all()->unique('roomName'),
+        ]);
     }
-    
+
         public function overview()
     {
         // Fetch necessary data for the overview page

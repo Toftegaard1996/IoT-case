@@ -36,8 +36,8 @@ const showingNavigationDropdown = ref(false);
                   Today's graph
                 </NavLink>
                 <NavLink
-                  :href="route('dashboard')"
-                  :active="route().current('blah')"
+                  :href="route('yesterdayGraph')"
+                  :active="route().current('yesterdayGraph')"
                 >
                   Yesterdays graph
                 </NavLink>

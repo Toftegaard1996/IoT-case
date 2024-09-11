@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-//    Route::get('office/index', [OfficeRoomsController::class, 'index']); // Gets today's data
+    Route::get('/yesterdayGraph', [OfficeRoomsController::class, 'yesterdayData'])->name('yesterdayGraph');
 
     //Setting routes for frontend
     Route::get('setting/index', [SettingsController::class, 'index'])->name('settings.index');

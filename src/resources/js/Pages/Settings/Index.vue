@@ -25,9 +25,6 @@ function convertFahrenheit($c) {
     return Fahrenheit
 }
 
-console.log(props.settings)
-console.log(props.settings.celcius)
-
 </script>
 
 <template>
@@ -63,7 +60,7 @@ console.log(props.settings.celcius)
                                     <td>{{ row.interval }} min</td>
                                     <td>{{ row.celcius? 'Celcius' : 'Fahrenheit' }} </td>
                                     <td>{{ row.celcius? row.maxTemp + ' C' : convertFahrenheit(row.maxTemp) + ' F' }}</td>
-                                    <td>{{ row.minTemp }}</td>
+                                    <td>{{ row.celcius? row.minTemp + ' C' : convertFahrenheit(row.minTemp) + ' F' }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
                                     <td>
