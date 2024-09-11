@@ -1,64 +1,87 @@
 <script setup lang="ts">
+// Importer nødvendige hooks og komponenter
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { Head, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from "@inertiajs/vue3";
+import type { OfficeRooms, Settings } from "@/Types";
+import GreenButton from "@/Components/GreenButton.vue";
+import FormNewSettings from "@/Components/FormNewSettings.vue";
 
+// Definer reaktive variabler til at holde sensor data og grupperede data
 const sensorData = ref([]);
 const groupedData = ref({});
 
+// Funktion til at hente sensor data fra API
 const fetchSensorData = async () => {
-    try {
-        const response = await axios.get("http://192.168.1.125:8000/update-sensor");
-        console.log("API Response:", response.data); // Debugging log
-        sensorData.value = response.data;
-        await groupDataByRoom();
-    } catch (error) {
-        console.error("Error fetching sensor data:", error);
-    }
+  try {
+    // Send GET-anmodning til API for at hente sensor data
+    const response = await axios.get("http://192.168.1.125:8000/update-sensor");
+    console.log("API Response:", response.data); // Debugging log
+    // Opdater sensorData med data fra API-responsen
+    sensorData.value = response.data;
+    // Kald funktion til at gruppere data efter rum
+    await groupDataByRoom();
+  } catch (error) {
+    console.error("Error fetching sensor data:", error);
+  }
 };
 
+// Funktion til at hente indstillinger for et specifikt rum fra API
 const fetchRoomSettings = async (roomName) => {
-    try {
-        const response = await axios.get(
-            `http://192.168.1.125:8000/settings/${roomName}`
-        );
-        return response.data;
-    } catch (error) {
-        console.error(`Error fetching settings for room ${roomName}:`, error);
-        return null;
-    }
+  try {
+    // Send GET-anmodning til API for at hente rumindstillinger
+    const response = await axios.get(
+      `http://192.168.1.125:8000/settings/${roomName}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching settings for room ${roomName}:`, error);
+    return null;
+  }
 };
 
+// Funktion til at gruppere sensor data efter rum
 const groupDataByRoom = async () => {
-    const grouped = sensorData.value.reduce((acc, data) => {
-        if (!acc[data.roomName]) {
-            acc[data.roomName] = [];
-        }
-        acc[data.roomName].push({
-            temp: parseFloat(data.temp),
-            humidity: parseFloat(data.humidity),
-            created_at: data.created_at ? new Date(data.created_at) : new Date(),
-        });
-        return acc;
-    }, {});
-
-    for (const roomName in grouped) {
-        const settings = await fetchRoomSettings(roomName);
-        grouped[roomName].settings = settings;
+  // Reducer sensorData til et objekt grupperet efter roomName
+  const grouped = sensorData.value.reduce((acc, data) => {
+    if (!acc[data.roomName]) {
+      acc[data.roomName] = [];
     }
+    // Tilføj data til det relevante rum
+    acc[data.roomName].push({
+      temp: parseFloat(data.temp),
+      humidity: parseFloat(data.humidity),
+      created_at: data.created_at ? new Date(data.created_at) : new Date(),
+    });
+    return acc;
+  }, {});
 
-    groupedData.value = grouped;
+  console.log("Grouped Data Before Settings:", grouped); // Debugging log
+
+  // Hent og tilføj indstillinger for hvert rum
+  for (const roomName in grouped) {
+    const settings = await fetchRoomSettings(roomName);
+    grouped[roomName].settings = settings;
+  }
+
+  console.log("Grouped Data After Settings:", grouped); // Debugging log
+
+  // Opdater groupedData med de grupperede data
+  groupedData.value = grouped;
 };
 
+// Kør fetchSensorData når komponenten er monteret
 onMounted(() => {
-    fetchSensorData();
+  fetchSensorData();
 });
 </script>
 
 <template>
+  <!-- Sæt sidehovedet -->
   <Head title="Dagens graf" />
 
+  <!-- Brug AuthenticatedLayout til at omgive indholdet -->
   <AuthenticatedLayout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -71,14 +94,17 @@ onMounted(() => {
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900">
             Aktuel temperatur og fugtighedsoversigt
+            <!-- Loop gennem hvert rum i groupedData og vis dets data -->
             <div
               v-for="(data, roomName) in groupedData"
               :key="roomName"
               class="room-overview"
             >
               <h3>{{ roomName }}</h3>
-              <p>Temperatur: {{ data[data.length - 1].temp }} °C</p>
-              <p>Fugtighed: {{ data[data.length - 1].humidity }} %</p>
+              <p>Temperatur: {{ data[0].temp }} °C</p>
+              <p>Fugtighed: {{ data[0].humidity }} %</p>
+
+              <!-- Vis advarsler baseret på rumindstillinger -->
               <div v-if="data.settings">
                 <p
                   v-if="
