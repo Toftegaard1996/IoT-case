@@ -23,7 +23,6 @@ const fetchSensorData = async () => {
   } catch (error) {
     console.error("Error fetching sensor data:", error);
   }
-  location.reload();
 };
 
 const groupDataByRoom = () => {
