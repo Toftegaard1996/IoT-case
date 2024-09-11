@@ -59,7 +59,8 @@ function convertFahrenheit($c) {
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
                                     <td>{{ row.interval }}</td>
-                                    <td>{{'row.celcius'? row.maxTemp : convertFahrenheit(row.maxTemp) }}</td>
+                                    <td>{{// 'row.celcius'? row.maxTemp : convertFahrenheit(row.maxTemp) }}</td>
+                                    <td>{{row.celcius}}</td>
                                     <td>{{ row.minTemp }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
