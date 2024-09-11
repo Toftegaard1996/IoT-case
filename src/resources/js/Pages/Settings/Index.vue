@@ -40,7 +40,7 @@ function convertFahrenheit($c) {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
-                            <h3 class="font-bold size-16">Oversigt over indstillinger</h3>
+                            <h3 class="font-bold size-16 w-full">Oversigt over indstillinger</h3>
                             <div class="mt-4">
                                 <GreenButton @click="openNewSettingsModal">+ Ny</GreenButton>
                             </div>

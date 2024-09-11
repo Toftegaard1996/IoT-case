@@ -46,7 +46,8 @@ class SettingsController extends Controller
             'startHour' => $request->input('startHour'),
             'endHour' => $request->input('endHour')
         ]);
-        return redirect()->route('settings.index');
+        return redirect()->back();
+//            redirect()->route('settings.index');
 //        return response()->json($setting, 201);
     }
 
