@@ -23,8 +23,6 @@ Route::get('/blah', function () {
 Route::get('/', [OfficeRoomsController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route::post('office/store', [OfficeRoomsController::class, 'store']); // Store a new entry with collected data
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
