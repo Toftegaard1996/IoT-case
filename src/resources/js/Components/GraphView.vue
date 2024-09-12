@@ -1,120 +1,157 @@
-<script setup>
-// import "https://cdn.jsdelivr.net/npm/chart.js"
-// import "https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"
-// import "https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" //Date adapter
-import Chart from 'chart.js/auto';
-console.log('Initializing chart...');
-
-// Initialize the chart
-let ctx = document.getElementById('sensorChart').getContext('2d');
-const sensorChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [], // Timestamps
-        datasets: [{
-            label: 'Temperature',
-            data: [],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            fill: false,
-            tension: 0.1,
-            spanGaps: true  // Allow gaps in the line
-        }, {
-            label: 'Humidity',
-            data: [],
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            fill: false,
-            tension: 0.1,
-            spanGaps: true  // Allow gaps in the line
-        }]
-    },
-    options: {
-        animation: {
-            duration: 0 // set to 0 to disable animation completely or to a lower value like 200 for fast animations
-        },
-        scales: {
-            x: {
-                type: 'time',
-                time: {
-                    unit: 'minute',
-                    tooltipFormat: 'll HH:mm',
-                    displayFormats: {
-                        'minute': 'HH:mm',
-                        'hour': 'MMM D, HH:mm',
-                        'day': 'MMM D'
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Time'
-                }
-            },
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-
-// Function to update the chart with new sensor data
-function updateSensorChart(data, reset = false) {
-    if (reset) {
-        resetChartData();
-    }
-    console.log('Updating chart with new data:', data);
-
-    const timestamp = moment(data.Timestamp).toDate(); // Convert to JavaScript Date using moment.js
-    console.log('Timestamp parsed:', timestamp);
-
-    sensorChart.data.labels.push(timestamp);
-    sensorChart.data.datasets[0].data.push(data.Temperature);
-    sensorChart.data.datasets[1].data.push(data.Humidity);
-    sensorChart.update();
-}
-
-// Function to reset the chart data
-function resetChartData() {
-    sensorChart.data.labels = [];
-    sensorChart.data.datasets.forEach(dataset => {
-        dataset.data = [];
-    });
-}
-
-// Function to refresh the chart with all data from the server
-function refreshChart() {
-    console.log('Fetching all data from server...');
-    fetch('/update-sensor')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data fetched from server:', data);
-            resetChartData();  // Clear previous data
-            data.forEach(sensorData => {
-                updateSensorChart(sensorData, false);
-            });
-        })
-        .catch(error => console.error('Error fetching data from server:', error));
-}
-
-// Fetch existing data from the server on page load
-refreshChart();
-
-// Listen for real-time updates
-setTimeout(() => {
-    const sensorChannel = window.Echo.channel('sensor-channel');
-    console.log('Subscribed to sensor-channel');
-
-    sensorChannel.listen('SensorDataUpdated', (e) => {
-        console.log('New sensor data received:', e.sensorData);
-
-        // Fetch all data again to ensure consistency
-        refreshChart();
-    });
-}, 200);
-
-</script>
-
 <template>
-
+  <div>
+    <!-- Canvas elementet hvor grafen vil blive tegnet -->
+    <canvas :id="'chart-' + roomName"></canvas>
+  </div>
 </template>
 
+<script>
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  TimeScale,
+} from "chart.js";
+import "chartjs-adapter-date-fns";
+
+// Registrer nødvendige komponenter eksplicit
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  TimeScale
+);
+
+export default {
+    props: {
+        roomName: String,
+        temperatureData: Array, // Array of temperature data received as a prop
+        showYesterday: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            chartInstance: null,  // Store the chart instance here
+            localTemperatureData: [...this.temperatureData], // Copy prop to local data
+        };
+    },
+    watch: {
+        // Watch for changes in the prop and update the local data property
+        temperatureData(newData) {
+            this.localTemperatureData = [...newData];
+            this.renderChart();  // Re-render the chart when temperatureData changes
+        }
+    },
+    mounted() {
+        console.log("Initial Temperatur Data:", this.localTemperatureData); // Debugging log
+        this.renderChart();
+
+        // Listen for real-time updates after mounting
+        setTimeout(() => {
+            const sensorChannel = window.Echo.channel('sensor-channel');
+            console.log('Subscribed to sensor-channel');
+
+            sensorChannel.listen('SensorDataUpdated', (e) => {
+                console.log('New sensor data received:', e.sensorData);
+
+                // Update the local temperature data, not the prop
+                this.localTemperatureData = [...e.sensorData];
+                this.renderChart();
+                location.reload();
+            });
+        }, 200);
+    },
+    methods: {
+        renderChart() {
+
+            //Destroy the existing chart if it exists
+            if (this.chartInstance) {
+                this.chartInstance.destroy();
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const startDate = this.showYesterday
+                ? new Date(today.setDate(today.getDate() - 1))
+                : today;
+            const endDate = this.showYesterday
+                ? new Date(today.setDate(today.getDate() + 1))
+                : new Date();
+
+            const filteredData = this.localTemperatureData.filter((data) => {
+                const date = new Date(data.created_at);
+                return date >= startDate && date < endDate;
+            });
+
+            const labels = filteredData.map((data) => {
+                const date = new Date(data.created_at);
+                return date;
+            });
+
+            const temperatures = filteredData.map((data) => {
+                const temp = parseFloat(data.temp);
+                return temp;
+            });
+
+            const ctx = document.getElementById("chart-" + this.roomName).getContext("2d");
+
+            // Create the new chart and store the instance
+            this.chartInstance = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Temperatur",
+                            data: temperatures,
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: "time",
+                            time: {
+                                unit: "minute",
+                                tooltipFormat: "MMM dd, yyyy HH:mm",
+                                displayFormats: {
+                                    minute: "HH:mm",
+                                    hour: "MMM dd, HH:mm",
+                                },
+                            },
+                            title: {
+                                display: true,
+                                text: "Tidsstempel",
+                            },
+                        },
+                        y: {
+                            type: "linear",
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Temperatur (Â°C)",
+                            },
+                        },
+                    },
+                },
+            });
+            console.log('Filtered Data:', filteredData);
+            console.log('Labels:', labels);
+            console.log('Temperatures:', temperatures);
+        },
+    },
+};
+
+</script>

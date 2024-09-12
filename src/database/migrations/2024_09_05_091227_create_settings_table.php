@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('roomName');
             $table->string('interval');
+            $table->boolean('celcius')->default(1);
             $table->string('maxTemp');
             $table->string('minTemp');
             $table->string('startHour');

@@ -12,10 +12,11 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Settings/Index', [
-            'settings' => Settings::all(),
-            'rooms' => OfficeRooms::all()->unique('roomName'),
-        ]);
+        $settings = Settings::all();
+            return Inertia::render('Settings/Index', [
+                'settings' => $settings,
+                'rooms' => OfficeRooms::all()->unique('roomName'),
+            ]);
     }
 
     public function show($id)
@@ -39,12 +40,14 @@ class SettingsController extends Controller
         $setting = Settings::create([
             'roomName' => $request->input('roomName'),
             'interval' => $request->input('interval'),
+            'celcius' => $request->input('celcius'),
             'maxTemp' => $request->input('maxTemp'),
             'minTemp' => $request->input('minTemp'),
             'startHour' => $request->input('startHour'),
             'endHour' => $request->input('endHour')
         ]);
-        return response()->json($setting, 201);
+        return redirect()->back();
+//        return response()->json($setting, 201);
     }
 
     public function edit(Settings $settings)
@@ -68,6 +71,7 @@ class SettingsController extends Controller
         // Update the setting with new data from the request
         $setting->update([
             'interval' => $request->input('interval'),
+            'celcius' => $request->input('celcius'),
             'maxTemp' => $request->input('maxTemp'),
             'minTemp' => $request->input('minTemp'),
             'startHour' => $request->input('startHour'),
@@ -75,7 +79,8 @@ class SettingsController extends Controller
         ]);
 
         // Return the updated setting
-        return response()->json($setting, 200);
+        return redirect()->route('settings.index');
+//        return response()->json($setting, 200);
     }
 
     public function destroy($id)

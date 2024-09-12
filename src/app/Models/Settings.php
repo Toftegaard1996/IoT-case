@@ -12,6 +12,7 @@ class Settings extends Model
     protected $fillable = [
         'roomName',
         'interval',
+        'celcius',
         'maxTemp',
         'minTemp',
         'startHour',

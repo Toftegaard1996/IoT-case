@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from "@inertiajs/vue3";
+import {Head, Link} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import type {OfficeRooms, Settings} from "@/Types";
 import GreenButton from "@/Components/GreenButton.vue";
@@ -14,10 +14,17 @@ const props = defineProps<{
 }>()
 
 const openNewSettings = ref<boolean>(false)
+let Fahrenheit
 
 function openNewSettingsModal() {
     openNewSettings.value = true;
 }
+
+function convertFahrenheit($c) {
+    Fahrenheit = ($c * 9/5) + 32
+    return Fahrenheit
+}
+
 </script>
 
 <template>
@@ -33,29 +40,33 @@ function openNewSettingsModal() {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900"><!--Her kan du se og ændre indstillinger for et gældende lokale -->
                         <div>
-                            <p>Oversigt over indstillinger</p>
-                            <div class="mt-4">
+                            <h3 class="font-bold size-16 w-full">Oversigt over indstillinger</h3>
+                            <div class="my-2">
                                 <GreenButton @click="openNewSettingsModal">+ Ny</GreenButton>
                             </div>
                             <table class="w-full mt-2">
                                 <tr>
                                     <th>Room name</th>
                                     <th>Interval</th>
+                                    <th>Format</th>
                                     <th>Max temp</th>
                                     <th>Min temp</th>
                                     <th>Start tid</th>
                                     <th>Slut tid</th>
                                     <th></th>
                                 </tr>
-                                <tr v-for="row in settings" :key="row.id" class="text-center">
+                                <tr v-for="row in settings" :key="row.id" class="text-center mb-2 border-b pb-4 border-green-300">
                                     <td>{{ row.roomName }}</td>
                                     <td>{{ row.interval }} min</td>
-                                    <td>{{ row.maxTemp }}</td>
-                                    <td>{{ row.minTemp }}</td>
+                                    <td>{{ row.celcius? 'Celcius' : 'Fahrenheit' }} </td>
+                                    <td>{{ row.celcius? row.maxTemp + ' C' : convertFahrenheit(row.maxTemp) + ' F' }}</td>
+                                    <td>{{ row.celcius? row.minTemp + ' C' : convertFahrenheit(row.minTemp) + ' F' }}</td>
                                     <td>{{ row.startHour }}</td>
                                     <td>{{ row.endHour }}</td>
                                     <td>
-                                        <GreenButton>Rediger</GreenButton>
+                                        <Link methods="get" :href="route('settings.edit', row)">
+                                            <GreenButton>Rediger</GreenButton>
+                                        </Link>
                                     </td>
 
                                 </tr>
