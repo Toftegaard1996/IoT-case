@@ -136,8 +136,8 @@ onMounted(() => {
               <div v-if="data.settings">
                 <p
                   v-if="
-                    data[data.length - 1].temp > data.settings.maxTemp ||
-                    data[data.length - 1].temp < data.settings.minTemp
+                    data[0].temp > data.settings.maxTemp ||
+                    data[0].temp < data.settings.minTemp
                   "
                 >
                   ⚠️ Advarsel: Temperaturen er uden for grænserne!
